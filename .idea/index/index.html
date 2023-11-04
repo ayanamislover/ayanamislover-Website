@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello from Ayanami's Lover</title>
+    <link rel="icon" type="png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="stylesheet" href="styles2.css">
+    <style>
+        .text-center {
+            text-align: center;
+        }
+
+        .small-font {
+            font-size: smaller;
+        }
+
+        .illustration-credit {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    
+<div class="scale-container" style="transform: scale(0.998532) translate(0.939794px, 0px);">
+    <div class="text-center">
+        <div class="small-font illustration-credit">
+            Hello from Ayanami's Lover<br>        
+        </div>
+        <div class="scrolling-wrapper" id="autoScrollDiv">
+            <img src="ayanami0.png" alt="Image 1" class="">
+            <img src="ayanami1.png" alt="Image 2" class="">
+            <img src="ayanami2.png" alt="Image 3" class="">
+            <img src="ayanami3.png" alt="Image 4" class="">
+            <img src="ayanami4.png" alt="Image 5" class="">
+            <img src="ayanami5.png" alt="Image 6" class="">
+            <img src="ayanami6.png" alt="Image 7" class="">
+            <img src="ayanami7.png" alt="Image 8" class="">
+            <img src="ayanami0.png" alt="Image 1" class="">
+            <img src="ayanami1.png" alt="Image 2" class="">
+            <img src="ayanami2.png" alt="Image 3" class="">
+            <img src="ayanami3.png" alt="Image 4" class="">
+            <img src="ayanami4.png" alt="Image 5" class="">
+            <img src="ayanami5.png" alt="Image 6" class="">
+            <img src="ayanami6.png" alt="Image 7" class="">
+            <img src="ayanami7.png" alt="Image 8" class="">
+
+            
+
+        </div>
+    </div>
+    <div class="text-center">
+        <div class="small-font illustration-credit1">
+            <br>Character Illustration by
+            <a href="https://www.pixiv.net/artworks/89333813">sironora</a>
+            <a href="https://www.pixiv.net/artworks/67232472">太もも</a>
+            <a href="https://www.pixiv.net/artworks/69443824">ここね</a>
+            <a href="https://www.pixiv.net/artworks/71174547">ネコティー</a>
+            <a href="https://www.pixiv.net/artworks/70875410">豊咲</a>
+            <a href="https://www.pixiv.net/artworks/82036448">ひみつ</a>
+        </div>
+        
+        <div class="small-font illustration-credit2">
+        绫波天下第一！<br>
+        綾波は世界一だ!<br>
+        Аянами - номер один!<br>
+        Ayanami è il numero uno!<br>
+        Ayanami No.1 in the world!<br>
+        Ayanami ist die Beste der Welt！<br>
+        Η Ayanami είναι το νούμερο ένα!<br>
+        Ayanami est la meilleure au monde！<br>
+    </div>
+    </div>
+
+    <script>
+
+
+        let resizeTimeout;
+
+        function debouncedResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(setScale, 200);
+        }
+
+        window.addEventListener('resize', debouncedResize);
+
+        function setScale() {
+            const container = document.querySelector('.scale-container');
+            const scaleX = window.innerWidth / container.scrollWidth;
+            const scaleY = window.innerHeight / container.scrollHeight;
+            const scale = Math.min(scaleX, scaleY);
+
+            // 计算偏移量以使内容居中
+            const offsetX = (window.innerWidth - container.scrollWidth * scale) / 2;
+            const offsetY = (window.innerHeight - container.scrollHeight * scale) / 2;
+
+            container.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+
+        window.addEventListener('resize', setScale);
+        window.addEventListener('load', setScale);
+
+        document.oncontextmenu = function () {
+            return false;
+        }
+
+        const div = document.getElementById('autoScrollDiv');
+        let leftPos = div.scrollLeft;
+        let isScrolling = true;
+
+        div.addEventListener('mouseover', function (e) {
+            const rect = e.target.getBoundingClientRect();
+            if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                isScrolling = false;  // 停止滚动
+            }
+        });
+
+        div.addEventListener('mouseout', function () {
+            isScrolling = true;  // 恢复滚动
+        });
+
+        const images = document.querySelectorAll('.scrolling-wrapper img');
+
+        images.forEach(image => {
+            image.addEventListener('mouseover', function () {
+                image.classList.add('enlarge');
+            });
+
+            image.addEventListener('mouseout', function () {
+                image.classList.remove('enlarge');
+            });
+        });
+
+
+        let totalWidthOfNImages = 40;  // 更改变量名称以更清晰地表示其目的
+        const n = 8;  // 假设每组有5张图片，您可以根据实际情况进行调整
+
+        window.addEventListener('load', function () {
+            // 当页面加载时，计算前n张图片的宽度之和
+            const images = document.querySelectorAll('.scrolling-wrapper img');
+
+            for (let i = 0; i < n; i++) {
+                totalWidthOfNImages += images[i].offsetWidth + 10;
+            }
+
+            setScale();
+        });
+
+        function autoScroll() {
+            if (isScrolling) {
+                leftPos += 0.7;
+                div.scrollLeft = leftPos;
+
+                if (leftPos >= totalWidthOfNImages) {
+                    leftPos = 0;
+                    div.scrollLeft = leftPos;
+                }
+            }
+
+            requestAnimationFrame(autoScroll);
+        }
+
+        autoScroll();
+        window.onload = function() {
+    var bgm = document.getElementById('bgm');
+    bgm.volume = 0.3; // 设置音量为30%
+}
+    </script>
+
+</div>
+</body>
+</html>

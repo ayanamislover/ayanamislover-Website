@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative; /* 需要为body设置relative定位，以便伪元素可以基于它进行定位 */
+}
+
+body::before {
+    content: ""; /* 为伪元素设置空内容 */
+    position: absolute; /* 使用绝对定位 */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; /* 使伪元素填满整个body元素 */
+
+    z-index: -1; /* 确保伪元素在内容下面 */
+
+    /* 默认背景为background1.png，适用于竖屏 */
+    background-image: url('background1.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.3;
+}
+
+@font-face {
+    font-family: 'Font-title';  /* 你可以为此字体命名 */
+    src: url('PermanentMarker-Regular.ttf');  /* 路径要根据你的项目结构来定 */
+}
+@font-face {
+    font-family: 'Font-text';  /* 你可以为此字体命名 */
+    src: url('Kalam-Light.ttf');  /* 路径要根据你的项目结构来定 */
+}
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.small-font.illustration-credit {
+    font-family: 'Font-title', serif;
+    font-size: 45px; /* 调整为所需的大小 */
+}
+
+.small-font.illustration-credit1 {
+    font-family: 'Font-text', serif;
+    font-size: 25px; /* 调整为所需的大小 */
+}
+.small-font.illustration-credit2 {
+ 
+    font-size: 20px; /* 调整为所需的大小 */
+    font-weight: bold;
+}
+.scale-container {
+    width: 100%;
+    height: 100%;
+    transform-origin: top left;
+}
+
+@media screen and (orientation: landscape) {
+    /* 当屏幕为横屏时，切换背景为background2.png */
+    body::before {
+        background-image: url('background2.png');
+    }
+}
+
+.scrolling-wrapper {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+will-change: transform;
+transform: translate3d(0,0,0);
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+.scrolling-wrapper img {
+    display: inline-block;
+    margin-right: 10px;
+    height: 300px; 
+}
+
+
+.enlarge {
+    transform: scale(1.1); /* 调整这里的数字来改变放大的程度 */
+    transition: transform 0.4s; /* 这会使图片平滑地放大和缩小 */
+}
