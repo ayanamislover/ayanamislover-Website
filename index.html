@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3f5f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c1119" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="一座只属于绫波的数字展馆。收藏她安静、明亮、可爱和令人心动的每一个瞬间。"
+    />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/hero/ayanami-hero-1672.avif"
+      imagesrcset="./assets/hero/ayanami-hero-960.avif 960w, ./assets/hero/ayanami-hero-1672.avif 1672w"
+      imagesizes="100vw"
+      fetchpriority="high"
+      media="(min-width: 761px), (orientation: landscape)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/hero/ayanami-hero-mobile-941.avif"
+      imagesrcset="./assets/hero/ayanami-hero-mobile-480.avif 480w, ./assets/hero/ayanami-hero-mobile-941.avif 941w"
+      imagesizes="100vw"
+      fetchpriority="high"
+      media="(max-width: 760px) and (orientation: portrait)"
+    />
+    <title>AYANAMI | 绫波天下第一</title>
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("ayanami-theme");
+        const systemTheme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = savedTheme || systemTheme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "AYANAMI",
+        "description": "一座只属于绫波的数字展馆。",
+        "inLanguage": ["zh-CN", "ja", "en"]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>请启用 JavaScript，才能进入绫波的完整展馆。</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

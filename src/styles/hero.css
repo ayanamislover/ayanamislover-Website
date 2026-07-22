@@ -1,0 +1,262 @@
+/* ─── Hero：电影级开幕主视觉 ─────────────────────────────────────
+   结构：.hero（网格：舞台 + 滚动提示）
+         └─ .hero-stage（环境光晕 + 居中画布）
+             └─ .hero-drift（JS 手卷漂移，transform-only）
+                 └─ .hero-art（画框：描边 / vignette / 投影）
+   私有变量只定义在 .hero 作用域下。 */
+
+.hero {
+  --hero-pad-top: 96px;
+  --hero-pad-bottom: 18px;
+  --hero-cue-height: 54px;
+
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 100dvh;
+  padding: var(--hero-pad-top) 16px var(--hero-pad-bottom);
+  overflow: hidden;
+  background: radial-gradient(92% 58% at 50% 0%, rgb(255 255 255 / 52%), transparent 72%);
+}
+
+:root[data-theme="dark"] .hero {
+  background: radial-gradient(92% 58% at 50% 0%, rgb(129 153 199 / 9%), transparent 72%);
+}
+
+/* 舞台：让画框悬浮于一池柔光之上。 */
+.hero-stage {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  place-items: center;
+}
+
+.hero-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 56%;
+  left: 50%;
+  width: min(76%, 980px);
+  height: 42%;
+  border-radius: 50%;
+  background:
+    radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 68%),
+    radial-gradient(50% 50% at 50% 50%, rgb(150 168 200 / 12%), transparent 62%);
+  filter: blur(30px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+:root[data-theme="dark"] .hero-stage::before {
+  background:
+    radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 70%),
+    radial-gradient(50% 50% at 50% 50%, rgb(122 148 196 / 14%), transparent 64%);
+}
+
+.hero-drift {
+  position: relative;
+  z-index: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* 画框：发丝描边 + 内嵌柔光 + 分层投影。 */
+.hero-art {
+  position: relative;
+  width: min(
+    calc(100vw - 32px),
+    1672px,
+    calc((100dvh - var(--hero-pad-top) - var(--hero-pad-bottom) - var(--hero-cue-height)) * 1.7779)
+  );
+  aspect-ratio: 1672 / 941;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  border-radius: var(--image-radius);
+  background: var(--surface);
+  box-shadow:
+    0 10px 30px rgb(47 58 78 / 10%),
+    var(--shadow);
+  animation: hero-art-reveal 1150ms var(--ease-out-expo) 140ms backwards;
+}
+
+:root[data-theme="dark"] .hero-art {
+  box-shadow:
+    0 14px 44px rgb(2 5 10 / 46%),
+    var(--shadow);
+}
+
+/* 内嵌 vignette：把画面轻轻「安放」进画框，永不遮挡主体。 */
+.hero-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: radial-gradient(118% 92% at 50% 44%, transparent 64%, rgb(16 21 30 / 6%) 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 38%),
+    inset 0 0 0 1px rgb(255 255 255 / 10%),
+    inset 0 -44px 88px -56px rgb(21 27 39 / 20%);
+  pointer-events: none;
+}
+
+:root[data-theme="dark"] .hero-art::before {
+  background: radial-gradient(118% 92% at 50% 44%, transparent 60%, rgb(6 9 14 / 16%) 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 14%),
+    inset 0 0 0 1px rgb(255 255 255 / 6%),
+    inset 0 -48px 96px -56px rgb(2 5 10 / 42%);
+}
+
+.hero-art .smart-image,
+.hero-art picture,
+.hero-image {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-art .smart-image {
+  animation: hero-image-settle 1500ms var(--ease-out-expo) 140ms backwards;
+}
+
+.hero-image {
+  object-fit: contain;
+  object-position: center;
+}
+
+/* 开幕编排：画框浮现落定，画心从轻微放大缓缓归位。只播一次。 */
+@keyframes hero-art-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes hero-image-settle {
+  from {
+    transform: scale(1.055);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 滚动提示：低存在感，滚动后淡出。 */
+.hero-scroll-cue {
+  display: grid;
+  height: var(--hero-cue-height);
+  padding-top: 12px;
+  gap: 8px;
+  align-content: start;
+  justify-items: center;
+  color: color-mix(in srgb, var(--text-muted) 82%, transparent);
+  opacity: 1;
+  transition: opacity 520ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.hero-scroll-cue > * {
+  animation: hero-cue-enter 720ms var(--ease-out-expo) 1.25s backwards;
+}
+
+.hero[data-scrolled="true"] .hero-scroll-cue {
+  opacity: 0;
+}
+
+.hero-scroll-cue-label {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.hero-scroll-cue-line {
+  position: relative;
+  width: 1px;
+  height: 22px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--text-muted) 34%, transparent);
+}
+
+.hero-scroll-cue-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 8px;
+  background: color-mix(in srgb, var(--accent) 68%, var(--text-muted));
+  animation: hero-cue-drop 2.6s var(--ease-soft) 1.6s infinite backwards;
+}
+
+@keyframes hero-cue-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-cue-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -9px, 0);
+  }
+  30% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+}
+
+/* 移动竖屏：全身构图，紧凑但仍保留呼吸感。 */
+@media (max-width: 760px) and (orientation: portrait) {
+  .hero {
+    --hero-pad-top: 92px;
+    --hero-pad-bottom: 18px;
+    --hero-cue-height: 50px;
+
+    padding-inline: 12px;
+  }
+
+  .hero-art {
+    width: min(
+      calc(100vw - 24px),
+      941px,
+      calc((100dvh - var(--hero-pad-top) - var(--hero-pad-bottom) - var(--hero-cue-height)) * 0.5628)
+    );
+    aspect-ratio: 941 / 1672;
+    border-radius: 18px;
+  }
+}
+
+/* 横屏手机等矮视口：压低衬距与提示区，确保不溢出。 */
+@media (max-height: 560px) {
+  .hero {
+    --hero-pad-top: 84px;
+    --hero-pad-bottom: 14px;
+    --hero-cue-height: 40px;
+  }
+
+  .hero-scroll-cue {
+    padding-top: 8px;
+    gap: 6px;
+  }
+
+  .hero-scroll-cue-line {
+    height: 16px;
+  }
+}

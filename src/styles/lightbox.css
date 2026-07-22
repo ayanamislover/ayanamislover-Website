@@ -1,0 +1,210 @@
+/* Late-night gallery viewing room: theatrical scrim, quiet chrome, hairline craft. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(130% 105% at 50% 42%, rgb(15 19 26 / 60%) 0%, rgb(6 8 12 / 88%) 58%, rgb(2 3 6 / 96%) 100%);
+  backdrop-filter: blur(30px) saturate(112%);
+  -webkit-backdrop-filter: blur(30px) saturate(112%);
+}
+
+.lightbox-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(96vw, 1400px);
+  height: min(94dvh, 960px);
+  padding: 12px 12px 14px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: var(--image-radius);
+  background: rgb(11 14 19 / 88%);
+  color: #f2f4f8;
+  box-shadow:
+    0 48px 160px rgb(0 0 0 / 62%),
+    0 10px 44px rgb(0 0 0 / 38%),
+    inset 0 1px 0 rgb(255 255 255 / 8%);
+}
+
+/* Toolbar: quiet exhibition label — display title, muted index, hairline, close. */
+.lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 62px;
+  padding-inline: 14px 8px;
+}
+
+.lightbox-toolbar p {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  color: #eef1f6;
+}
+
+.lightbox-toolbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lightbox-counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: 0.14em;
+  color: #8f98a5;
+}
+
+.lightbox-toolbar-meta .lightbox-counter {
+  font-size: 0.78rem;
+}
+
+.lightbox-divider {
+  width: 1px;
+  height: 22px;
+  background: rgb(255 255 255 / 13%);
+}
+
+.lightbox .icon-button {
+  border-color: rgb(255 255 255 / 14%);
+  background: rgb(255 255 255 / 7%);
+  color: #eef1f6;
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    transform 100ms ease;
+}
+
+.lightbox .icon-button:hover {
+  border-color: rgb(255 255 255 / 26%);
+  background: rgb(255 255 255 / 12%);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 6%),
+    0 0 26px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.lightbox .icon-button:active {
+  transform: scale(0.96);
+}
+
+/* Stage: frames stack in one grid cell so cross-fades overlap. */
+.lightbox-image-wrap {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: calc(var(--image-radius) - 10px);
+  background: #090c10;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 5%);
+}
+
+.lightbox-frame {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Keep the theatre dark in both themes: contain bars show the stage, not --surface. */
+.lightbox-frame .smart-image {
+  background: transparent;
+}
+
+/* Quieter loading shimmer inside the viewing room. */
+.lightbox .image-loading {
+  background: linear-gradient(110deg, transparent 20%, rgb(255 255 255 / 9%) 42%, transparent 64%);
+  background-size: 220% 100%;
+}
+
+.lightbox-frame .smart-image,
+.lightbox-image {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-image {
+  object-fit: contain;
+}
+
+/* Bottom bar: centered control group + hairline position track. */
+.lightbox-navigation {
+  display: grid;
+  gap: 12px;
+  padding: 14px 14px 4px;
+}
+
+.lightbox-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+
+.lightbox-controls .lightbox-counter {
+  min-width: 78px;
+  font-size: 0.92rem;
+  color: #c3cad4;
+  text-align: center;
+}
+
+.lightbox-progress {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 8%);
+}
+
+.lightbox-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 320ms var(--ease-soft);
+}
+
+@media (max-width: 760px) {
+  .lightbox {
+    padding: 8px;
+  }
+
+  .lightbox-panel {
+    width: 100%;
+    height: min(96dvh, 900px);
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .lightbox-toolbar {
+    min-height: 56px;
+    padding-inline: 10px 4px;
+  }
+
+  .lightbox-toolbar p {
+    font-size: 0.94rem;
+  }
+
+  .lightbox-toolbar-meta {
+    gap: 10px;
+  }
+
+  .lightbox-navigation {
+    gap: 10px;
+    padding: 10px 10px 2px;
+  }
+
+  .lightbox-controls {
+    gap: 14px;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .lightbox {
+    background: rgb(3 5 8 / 97%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

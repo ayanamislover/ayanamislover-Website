@@ -1,0 +1,147 @@
+.tribute {
+  padding-top: clamp(156px, 15vw, 228px);
+  padding-bottom: clamp(152px, 14vw, 216px);
+  border-top: 1px solid var(--line);
+}
+
+.tribute-content {
+  min-width: 0;
+  max-width: 960px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.tribute-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(430px, 40vw, 540px);
+  padding-block: clamp(40px, 5vw, 64px);
+  flex-direction: column;
+  gap: clamp(52px, 6vw, 76px);
+}
+
+.tribute-primary {
+  max-width: 21ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.9rem, 5.2vw, 4.75rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.tribute-translation {
+  display: grid;
+  width: 100%;
+  min-height: 210px;
+  place-items: center;
+}
+
+.tribute-quartet {
+  display: grid;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 54px) clamp(48px, 7vw, 96px);
+  list-style: none;
+  text-align: center;
+}
+
+.tribute-language {
+  min-width: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.tribute-language[dir="rtl"] {
+  text-align: center;
+}
+
+.tribute-language-code {
+  display: block;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+.tribute-language-text {
+  display: block;
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: clamp(1.04rem, 1.55vw, 1.3rem);
+  font-weight: 450;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.tribute-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tribute-divider-line {
+  flex: 1 1 0%;
+  height: 1px;
+  background: var(--line);
+}
+
+.tribute-divider-mark {
+  color: var(--accent);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+@media (max-width: 760px) {
+  .tribute {
+    padding-top: 128px;
+    padding-bottom: 120px;
+  }
+
+  .tribute-stage {
+    min-height: 500px;
+    padding-block: 40px;
+    gap: 48px;
+  }
+
+  .tribute-primary {
+    max-width: 24ch;
+    font-size: clamp(2.4rem, 10.5vw, 3.4rem);
+    line-height: 1.12;
+  }
+
+  .tribute-translation {
+    min-height: 300px;
+  }
+
+  .tribute-quartet {
+    gap: 28px 18px;
+  }
+
+  .tribute-language {
+    padding-top: 12px;
+  }
+
+  .tribute-language-code {
+    font-size: 0.7rem;
+  }
+
+  .tribute-language-text {
+    margin-top: 8px;
+    font-size: clamp(0.9rem, 4.1vw, 1.05rem);
+    line-height: 1.42;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .tribute-language {
+    border-top-width: 2px;
+  }
+
+  .tribute-divider-mark {
+    font-weight: 700;
+  }
+}

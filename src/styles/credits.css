@@ -1,0 +1,172 @@
+.credits {
+  padding-top: clamp(112px, 11vw, 168px);
+  padding-bottom: clamp(120px, 12vw, 184px);
+  border-top: 1px solid var(--line);
+}
+
+/* --- Creator directory --- */
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(48px, 7vw, 104px);
+  margin-top: clamp(64px, 8vw, 104px);
+  /* Hairline with soft-faded edges — 与 section-heading 同一工艺。 */
+  background: linear-gradient(90deg, transparent 0%, var(--line) 12%, var(--line) 88%, transparent 100%) top left / 100% 1px no-repeat;
+}
+
+.artist-column {
+  min-width: 0;
+}
+
+.artist-column a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 30px);
+  min-height: clamp(74px, 6vw, 86px);
+  padding-inline: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1rem, 1.4vw, 1.14rem);
+  font-weight: 600;
+  transition: color var(--duration-med) var(--ease-soft);
+}
+
+/* Gentle wash sweeping in behind the row on hover/focus. */
+.artist-column a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--text) 4.5%, transparent) 0%,
+    color-mix(in srgb, var(--text) 1.2%, transparent) 78%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-med) var(--ease-soft);
+}
+
+/* Accent line sweeping along the hairline on hover. */
+.artist-column a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 680ms var(--ease-out-expo);
+}
+
+.artist-column a:hover,
+.artist-column a:focus-visible {
+  color: var(--accent);
+}
+
+.artist-column a:hover::before,
+.artist-column a:focus-visible::before {
+  opacity: 1;
+}
+
+.artist-column a:hover::after,
+.artist-column a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.artist-index {
+  flex: 0 0 auto;
+  width: 2.4em;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.26em;
+  transition: color var(--duration-med) var(--ease-soft);
+}
+
+.artist-column a:hover .artist-index,
+.artist-column a:focus-visible .artist-index {
+  color: var(--accent);
+}
+
+.artist-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  letter-spacing: 0.015em;
+  transition: transform 600ms var(--ease-out-expo);
+}
+
+.artist-column a:hover .artist-name,
+.artist-column a:focus-visible .artist-name {
+  transform: translateX(7px);
+}
+
+.artist-column svg {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  color: var(--text-muted);
+  transition:
+    transform 600ms var(--ease-out-expo),
+    color var(--duration-med) var(--ease-soft);
+}
+
+.artist-column a:hover svg,
+.artist-column a:focus-visible svg {
+  color: var(--accent);
+  transform: translate(4px, -4px);
+}
+
+/* Rights colophon: small accent tick aligned to the first line. */
+.rights-note {
+  position: relative;
+  max-width: 58ch;
+  margin-top: clamp(56px, 6vw, 84px);
+  padding-left: 54px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.9;
+  letter-spacing: 0.045em;
+  text-wrap: pretty;
+}
+
+.rights-note::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.86em;
+  width: 34px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.55;
+}
+
+@media (max-width: 760px) {
+  .credits {
+    padding-top: 104px;
+    padding-bottom: 120px;
+  }
+
+  .artist-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    margin-top: 56px;
+    background: linear-gradient(90deg, var(--line) 0%, var(--line) 82%, transparent 100%) top left / 100% 1px no-repeat;
+  }
+
+  .artist-column a {
+    min-height: 68px;
+    padding-inline: 8px;
+  }
+
+  .rights-note {
+    margin-top: 52px;
+    padding-left: 46px;
+  }
+
+  .rights-note::before {
+    width: 28px;
+  }
+}

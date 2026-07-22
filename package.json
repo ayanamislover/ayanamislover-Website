@@ -1,0 +1,25 @@
+{
+  "name": "ayanami-archive",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "build": "npm run optimize:images && vite build",
+    "preview": "vite preview",
+    "check": "npm run build"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "motion": "^12.42.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.4",
+    "playwright-core": "^1.61.1",
+    "sharp": "^0.35.3",
+    "vite": "^8.1.5"
+  }
+}

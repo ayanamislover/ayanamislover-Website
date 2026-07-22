@@ -1,0 +1,413 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  /* Light theme: 冷雾白 —— 低饱和冷调雾面画廊。 */
+  --background: #f3f5f9;
+  --surface: #e9ecf1;
+  --surface-elevated: rgb(250 251 254 / 80%);
+  --text: #1b1f26;
+  --text-muted: #5a606b;
+  --line: rgb(20 28 40 / 11%);
+  --accent: #a43143;
+  --on-accent: #fff8fa;
+  --shadow: 0 28px 90px rgb(43 54 74 / 15%);
+  --image-radius: 24px;
+  --control-radius: 999px;
+  --content-width: 1240px;
+  --z-navigation: 40;
+  --z-modal: 80;
+  /* Shared motion + type contract (all sections may rely on these). */
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-med: 520ms;
+  --duration-slow: 900ms;
+  --space-section: clamp(128px, 14vw, 208px);
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  /* Ambient atmosphere layers (body::before / body::after). */
+  --glow-top: rgb(154 180 216 / 14%);
+  --glow-bottom: rgb(188 198 220 / 10%);
+  --grain-opacity: 0.035;
+  /* Scrollbar material. */
+  --scrollbar-thumb: rgb(27 31 38 / 18%);
+  --scrollbar-thumb-hover: rgb(27 31 38 / 32%);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  /* Dark theme: 深夜墨蓝画廊。 */
+  --background: #0c1119;
+  --surface: #141a24;
+  --surface-elevated: rgb(23 29 39 / 78%);
+  --text: #edf1f7;
+  --text-muted: #a2acbd;
+  --line: rgb(237 241 247 / 12%);
+  --accent: #e27784;
+  --on-accent: #20090e;
+  --shadow: 0 32px 110px rgb(1 4 9 / 55%);
+  --glow-top: rgb(88 128 182 / 16%);
+  --glow-bottom: rgb(66 98 148 / 10%);
+  --grain-opacity: 0.055;
+  --scrollbar-thumb: rgb(237 241 247 / 16%);
+  --scrollbar-thumb-hover: rgb(237 241 247 / 30%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* Slim, theme-adaptive scrollbar (WebKit). */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--text);
+  transition: background-color 240ms ease, color 240ms ease;
+}
+
+/* Ambient cold gallery glow — fixed, inert, transform/opacity-only friendly. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 62% at 50% -12%, var(--glow-top) 0%, transparent 62%),
+    radial-gradient(78% 46% at 84% 108%, var(--glow-bottom) 0%, transparent 70%);
+}
+
+/* Fine film grain — fixed, inert, extremely subtle, GPU-friendly drift. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -16px;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: var(--grain-opacity);
+  animation: grain-drift 1.6s steps(4) infinite;
+}
+
+@keyframes grain-drift {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-6px, 5px, 0); }
+  50% { transform: translate3d(5px, -6px, 0); }
+  75% { transform: translate3d(-4px, -4px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+body,
+button,
+a {
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+figure,
+p,
+h1,
+h2 {
+  margin: 0;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+  color: inherit;
+  text-shadow: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  z-index: calc(var(--z-modal) + 1);
+  padding: 12px 18px;
+  border-radius: var(--control-radius);
+  background: var(--accent);
+  color: var(--on-accent);
+  transform: translateY(-180%);
+  transition: transform 180ms ease-out;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.section-shell {
+  width: min(calc(100% - 48px), var(--content-width));
+  margin-inline: auto;
+  padding-block: clamp(112px, 12vw, 176px);
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.62fr);
+  align-items: end;
+  gap: clamp(40px, 8vw, 128px);
+  max-width: none;
+  padding-top: clamp(26px, 3vw, 34px);
+  border-top: 0;
+  /* Hairline with soft-faded edges — 发丝线工艺。 */
+  background: linear-gradient(90deg, transparent 0%, var(--line) 14%, var(--line) 86%, transparent 100%) top left / 100% 1px no-repeat;
+}
+
+.section-heading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.65rem + 1.9vw, 3.15rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+.section-heading p {
+  max-width: 34em;
+  color: var(--text-muted);
+  font-size: clamp(0.96rem, 1.1vw, 1.05rem);
+  line-height: 1.75;
+  letter-spacing: 0.004em;
+}
+
+/* Optional eyebrow kicker for section headings — 小号大写字距眉题。 */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 20px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.section-eyebrow::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.65;
+}
+
+/* Shared circular icon button (navigation, lightbox). */
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background: var(--surface-elevated);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 100ms ease;
+}
+
+.icon-button:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  background: var(--surface);
+}
+
+.icon-button:active {
+  transform: scale(0.97);
+}
+
+.icon-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Shared progressive image material. */
+.smart-image {
+  --shimmer-sheen: rgb(255 255 255 / 20%);
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+:root[data-theme="dark"] .smart-image {
+  --shimmer-sheen: rgb(233 238 246 / 8%);
+}
+
+.smart-image picture {
+  display: contents;
+}
+
+.smart-image img {
+  opacity: 0;
+  filter: blur(14px) saturate(0.96);
+  transform: scale(1.025);
+  transition:
+    opacity 640ms var(--ease-soft),
+    filter 820ms var(--ease-soft),
+    transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.smart-image img[data-state="ready"] {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.image-loading {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 22%, var(--shimmer-sheen) 46%, transparent 66%);
+  background-size: 240% 100%;
+  animation: image-shimmer 2.3s var(--ease-soft) infinite;
+}
+
+.image-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.image-error::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 34px;
+  height: 1px;
+  background: var(--line);
+}
+
+@keyframes image-shimmer {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (max-width: 760px) {
+  .section-shell {
+    width: calc(100% - 32px);
+    padding-block: 96px;
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 18px;
+    background: linear-gradient(90deg, var(--line) 0%, var(--line) 78%, transparent 100%) top left / 100% 1px no-repeat;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2rem, 9vw, 2.65rem);
+  }
+
+  .icon-button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::after {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .icon-button {
+    border-width: 2px;
+  }
+}

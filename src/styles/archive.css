@@ -1,0 +1,121 @@
+/* ArchiveGallery: intrinsic-ratio artwork wall. */
+
+.archive {
+  padding-top: clamp(112px, 10vw, 152px);
+}
+
+.archive-heading {
+  margin-bottom: clamp(80px, 9vw, 124px);
+}
+
+.archive-rows {
+  display: grid;
+  gap: clamp(96px, 10vw, 152px);
+}
+
+.archive-row {
+  display: grid;
+  align-items: start;
+  gap: clamp(20px, 2.4vw, 34px);
+}
+
+.gallery-artwork {
+  min-width: 0;
+}
+
+/* --- 画框：圆角、轻投影、悬停轻抬 --- */
+
+.image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--image-radius);
+  background: var(--surface);
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 720ms var(--ease-soft);
+}
+
+.image-button:active {
+  transform: scale(0.995);
+}
+
+.gallery-artwork .image-button,
+.gallery-artwork .smart-image {
+  height: auto;
+}
+
+.gallery-artwork .image-button {
+  box-shadow: 0 18px 52px rgb(47 58 78 / 11%);
+}
+
+:root[data-theme="dark"] .gallery-artwork .image-button {
+  box-shadow: 0 22px 68px rgb(2 5 10 / 40%);
+}
+
+.gallery-artwork .image-button:hover,
+.gallery-artwork .image-button:focus-visible {
+  box-shadow: 0 30px 84px rgb(47 58 78 / 17%);
+}
+
+:root[data-theme="dark"] .gallery-artwork .image-button:hover,
+:root[data-theme="dark"] .gallery-artwork .image-button:focus-visible {
+  box-shadow: 0 32px 96px rgb(1 4 9 / 52%);
+}
+
+.archive-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 画面在画框内极缓放大 —— transform/filter only，不引发布局抖动。 */
+.gallery-artwork .image-button:hover .archive-image[data-state="ready"],
+.gallery-artwork .image-button:focus-visible .archive-image[data-state="ready"] {
+  filter: saturate(1.035) contrast(1.012);
+  transform: scale(1.02);
+}
+
+@media (max-width: 760px) {
+  .archive {
+    padding-top: 104px;
+  }
+
+  .archive-heading {
+    margin-bottom: 68px;
+  }
+
+  .archive-rows {
+    gap: 84px;
+  }
+
+  .archive-row {
+    grid-template-columns: 1fr !important;
+    gap: 64px;
+  }
+
+}
+
+/* 触屏：无悬停残留态。 */
+@media (hover: none) {
+  .gallery-artwork .image-button:hover,
+  .gallery-artwork .image-button:focus-visible {
+    box-shadow: 0 18px 52px rgb(47 58 78 / 11%);
+  }
+
+  :root[data-theme="dark"] .gallery-artwork .image-button:hover,
+  :root[data-theme="dark"] .gallery-artwork .image-button:focus-visible {
+    box-shadow: 0 22px 68px rgb(2 5 10 / 40%);
+  }
+
+  .gallery-artwork .image-button:hover .archive-image[data-state="ready"],
+  .gallery-artwork .image-button:focus-visible .archive-image[data-state="ready"] {
+    filter: none;
+    transform: none;
+  }
+}

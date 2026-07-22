@@ -1,0 +1,67 @@
+.site-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(calc(100% - 48px), var(--content-width));
+  margin-inline: auto;
+  padding-block: 50px max(50px, env(safe-area-inset-bottom));
+  /* Hairline with soft-faded edges — 安静的 colophon 顶线。 */
+  background: linear-gradient(90deg, transparent 0%, var(--line) 12%, var(--line) 88%, transparent 100%) top left / 100% 1px no-repeat;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.site-footer-note {
+  font-size: 0.84rem;
+  letter-spacing: 0.12em;
+}
+
+.site-footer a {
+  position: relative;
+  padding-bottom: 6px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  transition:
+    color var(--duration-med) var(--ease-soft),
+    transform var(--duration-med) var(--ease-soft);
+}
+
+/* Quiet underline sliding in from the left. */
+.site-footer a::after {
+  content: "";
+  position: absolute;
+  right: 0.26em; /* optically balance the trailing letter-spacing */
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 560ms var(--ease-out-expo);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.site-footer a:hover::after,
+.site-footer a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    align-items: start;
+    width: calc(100% - 32px);
+    flex-direction: column;
+    gap: 28px;
+    padding-block: 44px max(44px, env(safe-area-inset-bottom));
+    background: linear-gradient(90deg, var(--line) 0%, var(--line) 82%, transparent 100%) top left / 100% 1px no-repeat;
+  }
+}
