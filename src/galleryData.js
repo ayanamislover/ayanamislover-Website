@@ -94,29 +94,6 @@ export const galleryItems = [
   },
 ];
 
-export const tributes = [
-  { code: "日本語", lang: "ja", text: "綾波は世界一" },
-  { code: "English", lang: "en", text: "Ayanami is the best in the world" },
-  { code: "한국어", lang: "ko", text: "아야나미는 세계 최고야" },
-  { code: "Español", lang: "es", text: "Ayanami es la mejor del mundo" },
-  { code: "Deutsch", lang: "de", text: "Ayanami ist die Beste der Welt" },
-  { code: "Français", lang: "fr", text: "Ayanami est la meilleure au monde" },
-  { code: "Italiano", lang: "it", text: "Ayanami è la migliore al mondo" },
-  { code: "Português", lang: "pt", text: "Ayanami é a melhor do mundo" },
-  { code: "Русский", lang: "ru", text: "Аянами — лучшая в мире" },
-  { code: "Українська", lang: "uk", text: "Аянамі — найкраща у світі" },
-  { code: "Polski", lang: "pl", text: "Ayanami jest najlepsza na świecie" },
-  { code: "Nederlands", lang: "nl", text: "Ayanami is de beste ter wereld" },
-  { code: "Svenska", lang: "sv", text: "Ayanami är bäst i världen" },
-  { code: "Türkçe", lang: "tr", text: "Ayanami dünyanın en iyisi" },
-  { code: "Ελληνικά", lang: "el", text: "Η Ayanami είναι η καλύτερη στον κόσμο" },
-  { code: "العربية", lang: "ar", dir: "rtl", text: "أيانامي هي الأفضل في العالم" },
-  { code: "हिन्दी", lang: "hi", text: "अयानामी दुनिया में सबसे अच्छी है" },
-  { code: "ไทย", lang: "th", text: "อายานามิคือที่สุดในโลก" },
-  { code: "Tiếng Việt", lang: "vi", text: "Ayanami là tuyệt nhất thế giới" },
-  { code: "Bahasa Indonesia", lang: "id", text: "Ayanami adalah yang terbaik di dunia" },
-];
-
 export const artists = [
   { name: "sironora", href: "https://www.pixiv.net/artworks/89333813" },
   { name: "太もも", href: "https://www.pixiv.net/artworks/67232472" },

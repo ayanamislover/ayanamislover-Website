@@ -18,7 +18,7 @@ The generated master is a search result, not a literal visual prescription. This
 - Show each archive image once. Use four proportional two-image rows on desktop and a strict single column on mobile.
 - Gallery and source headers use a quiet hairline and two-column editorial split on wide screens, then stack with a deliberate gap on mobile.
 - Remove the redundant manifesto between hero and gallery. Never let live typography compete with the title already embedded in the hero artwork.
-- `绫波天下第一` is the sole large live-text moment and stays fixed at weight 500. Beneath it, each carousel frame draws four unique translations from a 20-language pool and replaces the entire quartet on the next frame.
+- `绫波天下第一` is the sole large live-text moment and stays fixed at weight 500. Beneath it, each carousel frame draws 10 unique translations from a 100-language pool and replaces the entire set on the next frame. Desktop uses a strict 5-column by 2-row grid; narrow screens use two columns by five rows for legibility.
 - Use frosted web materials only for floating navigation and the lightbox. They are web approximations, not official Apple Liquid Glass.
 - Image surfaces use a 28px radius. Interactive controls use a pill radius. No third radius family.
 - Motion communicates hierarchy, direct manipulation, feedback, or state change. All automatic motion has a reduced-motion fallback.

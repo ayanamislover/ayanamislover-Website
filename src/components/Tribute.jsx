@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
-import { tributes } from "../galleryData";
+import { tributes } from "../tributeTranslations";
 
-const ROTATION_SIZE = 4;
+const ROTATION_SIZE = 10;
 
 function selectionKey(selection) {
   return selection.map((item) => item.lang).sort().join("|");
@@ -58,7 +58,7 @@ export function Tribute() {
           <div className="tribute-translation" aria-live="off">
             <AnimatePresence mode="wait" initial={false}>
               <m.ul
-                className="tribute-quartet"
+                className="tribute-grid"
                 key={rotationKey}
                 initial={{ opacity: 0, y: 14, filter: "blur(7px)" }}
                 animate={{
