@@ -1,7 +1,6 @@
 .credits {
-  padding-top: clamp(112px, 11vw, 168px);
+  padding-top: clamp(64px, 6vw, 88px);
   padding-bottom: clamp(120px, 12vw, 184px);
-  border-top: 1px solid var(--line);
 }
 
 /* --- Creator directory --- */
@@ -145,7 +144,7 @@
 
 @media (max-width: 760px) {
   .credits {
-    padding-top: 104px;
+    padding-top: 72px;
     padding-bottom: 120px;
   }
 

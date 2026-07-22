@@ -1,6 +1,6 @@
 .tribute {
   padding-top: clamp(156px, 15vw, 228px);
-  padding-bottom: clamp(152px, 14vw, 216px);
+  padding-bottom: clamp(88px, 7vw, 112px);
   border-top: 1px solid var(--line);
 }
 
@@ -98,7 +98,7 @@
 @media (max-width: 760px) {
   .tribute {
     padding-top: 128px;
-    padding-bottom: 120px;
+    padding-bottom: 80px;
   }
 
   .tribute-stage {
